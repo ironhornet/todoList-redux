@@ -1,0 +1,9 @@
+.crossed-line {
+    text-decoration: line-through;
+}
+.todo_container{
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    align-items: center;
+}
