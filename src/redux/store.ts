@@ -1,15 +1,22 @@
-import { createStore, applyMiddleware } from "redux"
-import { composeWithDevTools } from "redux-devtools-extension";
-import logger from "redux-logger"
-import thunk from "redux-thunk";
+import {  combineReducers, configureStore } from "@reduxjs/toolkit"
+import todosReducer from "../redux/todos/reduxSlice/reduxSlice"
 
-import rootReducer from "./rootRreducer"
+const rootReducer = combineReducers({
+    todosReducer
+})
 
-const middleWares = applyMiddleware(thunk);
+export const setupStore = () => {
+    return configureStore ({
+        reducer: rootReducer
+    })
+}
 
-const store = createStore(rootReducer, composeWithDevTools(middleWares))
+// const middleWares = applyMiddleware(thunk);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+// const store = createStore(rootReducer, composeWithDevTools(middleWares))
 
-export default store
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore["dispatch"]
+
+

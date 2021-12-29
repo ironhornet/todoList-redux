@@ -68,23 +68,23 @@ export const addTodo = (todo: ITodo) => {
   };
 };
 
-export const getTodoList = () => {
-  return (dispatch: Dispatch<ITodoActions>) => {
-    dispatch(isLoading(true));
-    axios
-      .get("http://localhost:3004/todos")
-      .then((response) => {
-        dispatch(
-          getTodosListSuccess({
-            todos: response.data,
-            loading: false,
-            error: null,
-          })
-        );
-      })
-      .catch((error) => dispatch(isError("Error getting todoList")));
-  };
-};
+// export const getTodoList = () => {
+//   return (dispatch: Dispatch<ITodoActions>) => {
+//     dispatch(isLoading(true));
+//     axios
+//       .get("http://localhost:3004/todos")
+//       .then((response) => {
+//         dispatch(
+//           getTodosListSuccess({
+//             todos: response.data,
+//             loading: false,
+//             error: null,
+//           })
+//         );
+//       })
+//       .catch((error) => dispatch(isError("Error getting todoList")));
+//   };
+// };
 
 export const deleteTodo = (id: string) => {
   return (dispatch: Dispatch<ITodoActions>) => {
