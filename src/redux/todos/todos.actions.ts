@@ -1,6 +1,6 @@
-import axios from "axios";
 import { Dispatch } from "redux";
 
+import { request } from "../../utils/axiosUtils";
 import { ITodo } from "../../components/todo/todo.interface";
 import { ITodosState } from "../../components/inputField/inputField.interface";
 import {
@@ -59,21 +59,24 @@ export const deleteTodoSuccess = (id: string): IDeleteTodoAction => ({
 export const addTodo = (todo: ITodo) => {
   return (dispatch: Dispatch<ITodoActions>) => {
     dispatch(isLoading(true));
-    axios
-      .post("http://localhost:3004/todos", {
-        ...todo,
-      })
-      .then((response) => dispatch(addTodoSuccess(response.data)))
-      .catch((error) => dispatch(isError("Error adding todo")));
+    request(
+      { url: "/todos", data: { ...todo }, method: "post" },
+      (response: any) => {
+        dispatch(addTodoSuccess(response.data));
+      },
+      (error: string) => {
+        dispatch(isError("Error adding todo"));
+      }
+    );
   };
 };
 
 export const getTodoList = () => {
   return (dispatch: Dispatch<ITodoActions>) => {
     dispatch(isLoading(true));
-    axios
-      .get("http://localhost:3004/todos")
-      .then((response) => {
+    request(
+      { url: "/todos", method: "get" },
+      (response: any) => {
         dispatch(
           getTodosListSuccess({
             todos: response.data,
@@ -81,29 +84,40 @@ export const getTodoList = () => {
             error: null,
           })
         );
-      })
-      .catch((error) => dispatch(isError("Error getting todoList")));
+      },
+      (error: string) => {
+        dispatch(isError("Error getting todoList"));
+      }
+    );
   };
 };
 
 export const deleteTodo = (id: string) => {
   return (dispatch: Dispatch<ITodoActions>) => {
-    axios
-      .delete(`http://localhost:3004/todos/${id}`)
-      .then((response) => {
+    dispatch(isLoading(true));
+    request(
+      { url: `/todos/${id}`, method: "delete" },
+      (response: any) => {
         dispatch(deleteTodoSuccess(id));
-      })
-      .catch((error) => dispatch(isError("Error deleting todo")));
+      },
+      (error: string) => {
+        dispatch(isError("Error deleting todo"));
+      }
+    );
   };
 };
 
 export const upadateTodo = (id: string, completed: boolean) => {
   return (dispatch: Dispatch<ITodoActions>) => {
-    axios
-      .patch(`http://localhost:3004/todos/${id}`, {
-        completed,
-      })
-      .then((response) => {})
-      .catch((error) => dispatch(isError("Error updating todo")));
+    dispatch(isLoading(true));
+    request(
+      { url: `/todos/${id}`, data: { completed }, method: "patch" },
+      (response: any) => {
+        dispatch(toggleTodoSuccess(id));
+      },
+      (error: string) => {
+        dispatch(isError("Error updating todo"));
+      }
+    );
   };
 };

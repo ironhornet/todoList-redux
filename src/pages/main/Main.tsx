@@ -1,10 +1,11 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import React, { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./main.style.css";
 import TodoList from "../../components/todoList/TodoList";
 import InputField from "../../components/inputField/InputField";
 import { RootState } from "../../redux/store";
+import { getTodoList } from "../../redux/todos/todos.actions";
 
 const Main: FC = () => {
   const { 
@@ -15,10 +16,18 @@ const Main: FC = () => {
     (state: RootState) => state.todosState
   );
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTodoList());
+  }, [])
+
   return (
     <main className="container">
       <div>Todo List</div>
+
       <InputField />
+      
       <TodoList 
         todos={todos} 
         loading={loading} 

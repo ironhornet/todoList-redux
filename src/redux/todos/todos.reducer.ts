@@ -24,7 +24,7 @@ const todoReducer = (
 
     case "TOGGLE_TODO_SUCCESS": {
       const todos = toggleTodo(state, action);
-      return { ...state, todos };
+      return { ...state, todos, loading: false };
     }
 
     case "GET_TODO_LIST_SUCCESS": {
