@@ -9,6 +9,7 @@ const InputField: FC = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState({inputValue:"", alertVisibility: false})
 
+  //delete alerrt, add label to input with alert. label hang on handle change 
   const handleSubmit = () => { //TODO ? 
     if (state.inputValue.length > 3) {
       dispatch(

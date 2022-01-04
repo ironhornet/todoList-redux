@@ -73,15 +73,14 @@ export const addTodo = (todo: ITodo) => {
 
 export const getTodoList = () => {
   return (dispatch: Dispatch<ITodoActions>) => {
-    dispatch(isLoading(true));
     request(
       { url: "/todos", method: "get" },
       (response: any) => {
         dispatch(
           getTodosListSuccess({
             todos: response.data,
-            loading: false,
-            error: null,
+            loading: false, // replace
+            error: null, // replace todo reducer 
           })
         );
       },

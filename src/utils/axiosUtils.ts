@@ -8,8 +8,6 @@ export const request = <T extends unknown>(
   onSucces: any,
   onError: any
 ) => {
-  axios.defaults.headers.common["Authorization"] = "AuthToken";
-
   return client(options)
     .then((response: any) => {
       onSucces(response);
