@@ -2,9 +2,8 @@ import { Box } from "@mui/system";
 import React, { FC } from "react";
 import { Checkbox, Button, ButtonGroup } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { deleteTodo, toggleTodoSuccess } from "../../redux/todos/todos.actions";
+import { deleteTodo, updateTodo } from "../../redux/todos/reduxSlice/actionCreators";
 import { ITodoProps } from "./todo.interface";
-import { upadateTodo } from "../../redux/todos/todos.actions";
 import "./todo.styles.css";
 
 const Todo: FC<ITodoProps> = (props) => {
@@ -12,10 +11,7 @@ const Todo: FC<ITodoProps> = (props) => {
   const dispatch = useDispatch();
 
   const handleChange = () => {
-    // update state
-    dispatch(toggleTodoSuccess(todo.id));
-    //update serverData
-    dispatch(upadateTodo(todo.id, !todo.completed));
+    dispatch(updateTodo({id:todo.id, completed:!todo.completed}));
   };
   const handleDelete = (id: string) => {
     dispatch(deleteTodo(id));

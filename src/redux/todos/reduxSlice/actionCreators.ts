@@ -2,65 +2,58 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { ITodo } from "../../../components/todo/todo.interface";
-import { AppDispatch } from "../../store";
-import { todoSlice } from "../reduxSlice/reduxSlice";
-
-// export const getTodoList = () => {
-//   return (dispatch: AppDispatch) => {
-//     dispatch(todoSlice.actions.getTodoList);
-//     axios
-//       .get<ITodo[]>("http://localhost:3004/todos")
-//       .then((response) => {
-//         dispatch(todoSlice.actions.getTodoListSuccess(response.data));
-//         console.log(response.data)
-//       })
-//       .catch((error) =>
-//         dispatch(todoSlice.actions.getTodoListFailure(error.message))
-//       );
-//   };
-// };
+import {  IUpdateTodoData } from "./actionCrators.interface";
 
 export const getTodoList = createAsyncThunk(
   "todos/getAll",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get<ITodo[]>("http://localhost:3004/todos");
+      const response = await axios.get("http://localhost:3004/todos");
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Some error");
+      return thunkAPI.rejectWithValue("Error getting Todo List");
     }
   }
 );
 
-export const addTodo = createAsyncThunk("todos/addTodo", async (_, thunkAPI) => {
-  try {
-    const response = await axios.post<ITodo>("http://localhost:3004/todos");
-    return response.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue("Some error");
-  }
-});
-
-export const deleteTodo = createAsyncThunk(
-  "todos/getAll",
-  async (_, thunkAPI) => {
+export const addTodo = createAsyncThunk<ITodo, Partial<ITodo>>(
+  "todos/addTodo",
+  async (todo, thunkAPI) => {
     try {
-      const response = await axios.get<ITodo[]>("http://localhost:3004/todos");
+      const response = await axios.post("http://localhost:3004/todos", {
+        ...todo,
+      });
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Some error");
+      return thunkAPI.rejectWithValue("Error adding ToDo");
+    }
+  }
+);
+
+export const deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",
+  async (id: string, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3004/todos/${id}`);
+      return id;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Error deleting todo");
     }
   }
 );
 
 export const updateTodo = createAsyncThunk(
-  "todos/getAll",
-  async (_, thunkAPI) => {
+  "todos/updateTodo",
+  async (data: IUpdateTodoData, thunkAPI) => {
+    const { id, completed } = data;
     try {
-      const response = await axios.get<ITodo[]>("http://localhost:3004/todos");
+      const response = await axios.patch(
+        `http://localhost:3004/todos/${id}`,
+        { completed }
+      );
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Some error");
+      return thunkAPI.rejectWithValue("Error updating todo");
     }
   }
 );

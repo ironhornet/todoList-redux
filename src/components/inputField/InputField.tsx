@@ -3,7 +3,8 @@ import React, { FC, KeyboardEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 
-import { addTodo } from "../../redux/todos/todos.actions";
+// import { addTodo } from "../../redux/todos/todos.actions";
+import { addTodo } from "../../redux/todos/reduxSlice/actionCreators";
 
 const InputField: FC = () => {
   const dispatch = useDispatch();

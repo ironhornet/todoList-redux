@@ -1,16 +1,10 @@
 import { Box } from "@mui/system";
 import { FC } from "react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-// import { getTodoList } from "../../redux/todos/todos.actions";
 import { ITodoListProps } from "./todoList.interface";
 import Todo from "../todo/Todo";
 
 const TodoList: FC<ITodoListProps> = (props) => {
   const { todos, loading, error } = props;
-  const dispatch = useDispatch();
-
-
 
   const mapTodos = () => {
     if (todos && todos.length) {
