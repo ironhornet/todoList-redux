@@ -1,30 +1,44 @@
 import { Box } from "@mui/system";
 import { FC } from "react";
+
 import { ITodoListProps } from "./todoList.interface";
 import Todo from "../todo/Todo";
+import InputField from "../inputField/InputField";
 
 const TodoList: FC<ITodoListProps> = (props) => {
   const { todos, loading, error } = props;
 
-  const mapTodos = () => {
+  const checkIsInputValue = () => {
     if (todos && todos.length) {
-      return todos.map((todo) => (
-        <div key={todo.id}>
-          <Todo todo={todo} />
-        </div>
-      ));
-    } else {
-      return (<Box textAlign="center" sx={{ mt: "10px" }}>
-        You've done with all todos
-      </Box>);
+      return mapTodos();
     }
+
+    return (
+      <Box textAlign="center" sx={{ mt: "10px" }}>
+        You've done with all todos
+      </Box>
+    );
   };
- if(error){
-   return <h3>{error}</h3>
- }
+
+  const mapTodos = () => {
+    return todos.map((todo) => (
+      <Box key={todo.id}>
+        <Todo todo={todo} />
+      </Box>
+    ));
+  };
+
+  if (error) {
+    return <h3>{error}</h3>;
+  }
+
   return (
     <Box>
-      {loading ? <h3>Loading...</h3> : mapTodos()}
+      <Box>Todo List</Box>
+
+      <InputField />
+
+      {loading ? <h3>Loading...</h3> : checkIsInputValue()}
     </Box>
   );
 };

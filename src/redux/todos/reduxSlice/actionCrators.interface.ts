@@ -1,5 +1,5 @@
 export interface IValidationErrors {
-    errorMessage: string;
+    errorMessage: string | null;
   }
 
 export interface IUpdateTodoData {

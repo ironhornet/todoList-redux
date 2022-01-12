@@ -5,5 +5,5 @@ export interface IInputFieldProps {
   }
 export interface ITodosState extends IInputFieldProps{
   loading: boolean
-  error: null | string
+  error: null | string | undefined
 }

@@ -1,41 +1,46 @@
 import { FormControl, Box, Input, Button, Alert } from "@mui/material";
-import React, { FC, KeyboardEvent, useState } from "react";
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-
-// import { addTodo } from "../../redux/todos/todos.actions";
 import { addTodo } from "../../redux/todos/reduxSlice/actionCreators";
 
 const InputField: FC = () => {
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState("");
-  const [alertVisibility, setAlertVisibility] = useState(false);
+  const [state, setState] = useState({inputValue:"", alertVisibility: false})
 
+  //TODO delete alerrt, add label to input with alert. label hang up on handle change 
   const handleSubmit = () => {
-    if (inputValue.length > 3) {
+    if (state.inputValue.length > 3) {
       dispatch(
         addTodo({
-          content: inputValue,
+          content: state.inputValue,
           id: uuidv4(),
           completed: false,
         })
       );
-      setInputValue("");
-      setAlertVisibility(false);
+      setState({...state, inputValue: "", alertVisibility: false});
     } else {
-      setAlertVisibility(true);
+      setState({...state, alertVisibility: true});
     }
   };
+
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
       handleSubmit();
     }
   };
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setState({...state, inputValue: event.target.value})
+  }
+
   return (
     <Box className="input">
-      {alertVisibility ? (
-        <Alert variant="filled" severity="error">
+      {state.alertVisibility ? (
+        <Alert 
+          variant="filled" 
+          severity="error"
+        >
           You should type at least 4 characters
         </Alert>
       ) : null}
@@ -43,13 +48,14 @@ const InputField: FC = () => {
       <FormControl>
         <Input
           type="text"
-          value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
+          value={state.inputValue}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
+
         <Button 
           type="submit" 
-          disabled={!inputValue} 
+          disabled={!state.inputValue} 
           onClick={handleSubmit}
         >
           Add ToDo

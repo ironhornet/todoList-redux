@@ -1,59 +1,60 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
+import {IValidationErrors} from "./actionCrators.interface"
+import axiosRequest from "../../../utils/axiosUtils";
 import { ITodo } from "../../../components/todo/todo.interface";
 import {  IUpdateTodoData } from "./actionCrators.interface";
 
-export const getTodoList = createAsyncThunk(
+export const getTodoList = createAsyncThunk<ITodo[], undefined, {rejectValue: IValidationErrors}>(
   "todos/getAll",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get("http://localhost:3004/todos");
+      const response = await axiosRequest.get("/todos");
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Error getting Todo List");
+      return thunkAPI.rejectWithValue({errorMessage: "Error adding ToDo"});
     }
   }
 );
 
-export const addTodo = createAsyncThunk<ITodo, Partial<ITodo>>(
+export const addTodo = createAsyncThunk<ITodo, Partial<ITodo>, {rejectValue: IValidationErrors}>(
   "todos/addTodo",
   async (todo, thunkAPI) => {
     try {
-      const response = await axios.post("http://localhost:3004/todos", {
+      const response = await axiosRequest.post("/todos", {
         ...todo,
       });
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Error adding ToDo");
+      return thunkAPI.rejectWithValue({errorMessage: "Error adding ToDo"});
     }
   }
 );
 
-export const deleteTodo = createAsyncThunk(
+export const deleteTodo = createAsyncThunk<string, string, {rejectValue: IValidationErrors}>(
   "todos/deleteTodo",
-  async (id: string, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3004/todos/${id}`);
+      await axiosRequest.delete(`/todos/${id}`);
       return id;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Error deleting todo");
+      return thunkAPI.rejectWithValue({errorMessage: "Error deleting ToDo"});
     }
   }
 );
 
-export const updateTodo = createAsyncThunk(
+export const updateTodo = createAsyncThunk<ITodo, IUpdateTodoData, {rejectValue: IValidationErrors}>(
   "todos/updateTodo",
-  async (data: IUpdateTodoData, thunkAPI) => {
+  async (data, thunkAPI) => {
     const { id, completed } = data;
     try {
-      const response = await axios.patch(
-        `http://localhost:3004/todos/${id}`,
+      const response = await axiosRequest.patch(
+        `/todos/${id}`,
         { completed }
       );
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Error updating todo");
+      return thunkAPI.rejectWithValue({errorMessage: "Error deleting ToDo"});
     }
   }
 );

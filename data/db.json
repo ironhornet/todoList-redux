@@ -1,14 +1,3 @@
 {
-  "todos": [
-    {
-      "content": "123123",
-      "id": "844a9c2b-0ef0-460c-9bd9-ba715edde2a0",
-      "completed": false
-    },
-    {
-      "content": "13123131",
-      "id": "ae9d46cb-abde-4af7-8d10-9fe550eb2fa2",
-      "completed": false
-    }
-  ]
+  "todos": []
 }
