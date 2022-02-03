@@ -6,5 +6,5 @@ export interface IToggleTodoAction {
 
   export interface IDeleteTodoAction {
     type: string;
-    payload: string;
+    payload: any;
   }

@@ -7,7 +7,8 @@ import SignInAndSignUp from "../signInAndSignUp/SignInAndSignUp";
 import TodoList from "../../components/todoList/TodoList";
 import { RootState } from "../../redux/store";
 import { useAppSelector } from "../../hooks/redux";
-import { getTodoList } from "../../redux/todos/reduxSlice/actionCreators";
+// import { getTodoList } from "../../redux/todos/reduxSlice/actionCreators";
+import { getTodos } from "../../redux/todos/reduxSlice/todoSlice";
 
 const Main: FC = () => {
   const { todos, loading, error } = useAppSelector(
@@ -15,8 +16,10 @@ const Main: FC = () => {
   );
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
-    dispatch(getTodoList());
+    dispatch(getTodos());
+    // dispatch(getTodoList());
   }, []);
 
   return (

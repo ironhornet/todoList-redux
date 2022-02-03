@@ -2,7 +2,9 @@ import { FormControl, Box, Input, Button, Alert } from "@mui/material";
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../redux/todos/reduxSlice/actionCreators";
+// import { addNewTodo } from "../../redux/todos/sagas/rootSaga";
+import { addTodo } from "../../redux/todos/reduxSlice/todoSlice";
+// import { addTodo } from "../../redux/todos/reduxSlice/actionCreators";
 
 const InputField: FC = () => {
   const dispatch = useDispatch();

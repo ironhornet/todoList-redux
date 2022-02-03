@@ -1,10 +1,20 @@
-export interface ITodo {
+export interface ITodoResponse {
+  payload: {
     id: string;
     completed: boolean;
     content: string;
-    loading?: boolean
-  }
-  
+  };
+  loading?: boolean;
+  id: string
+}
+export interface ITodo {
+  id: string;
+  completed: boolean;
+  content: string;
+  loading?: boolean;
+}
+
 export interface ITodoProps {
-    todo: ITodo
-  }
+  todo: ITodo;
+  id: string;
+}

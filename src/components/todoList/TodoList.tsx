@@ -7,7 +7,8 @@ import InputField from "../inputField/InputField";
 
 const TodoList: FC<ITodoListProps> = (props) => {
   const { todos, loading, error } = props;
-
+  
+ 
   const checkIsInputValue = () => {
     if (todos && todos.length) {
       return mapTodos();
@@ -21,9 +22,9 @@ const TodoList: FC<ITodoListProps> = (props) => {
   };
 
   const mapTodos = () => {
-    return todos.map((todo) => (
-      <Box key={todo.id}>
-        <Todo todo={todo} />
+    return todos.map(({ payload, id }) => (
+      <Box key={id}>
+        <Todo todo={payload} id={id} />
       </Box>
     ));
   };

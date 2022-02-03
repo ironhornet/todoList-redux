@@ -1,7 +1,7 @@
-import { ITodo } from "../todo/todo.interface";
+import { ITodo, ITodoResponse } from "../todo/todo.interface";
 
 export interface ITodoListProps {
-    todos: ITodo[],
+    todos: ITodoResponse[],
     loading: boolean,
     error: null | string | undefined
 }

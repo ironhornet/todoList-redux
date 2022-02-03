@@ -1,3 +1,60 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "type": "ADD_TODO/TRIGGER",
+      "payload": {
+        "content": "zxczdacsadas",
+        "completed": true,
+        "id": "8d16d0ad-f901-46f0-b308-c5e514138869"
+      },
+      "id": 1,
+      "content": "zxczdacsadas",
+      "completed": false
+    },
+    {
+      "type": "ADD_TODO/TRIGGER",
+      "payload": {
+        "content": "sadassd",
+        "id": "c8c81e6c-14b3-4000-a455-cfd4b4770804",
+        "completed": false
+      },
+      "id": 2
+    },
+    {
+      "type": "ADD_TODO/TRIGGER",
+      "payload": {
+        "content": "asdasdas",
+        "id": "ebd0cfac-5292-4466-86fe-1ce91578e250",
+        "completed": false
+      },
+      "id": 3
+    },
+    {
+      "type": "ADD_TODO/TRIGGER",
+      "payload": {
+        "content": "asdasdsad",
+        "id": "cf081789-d918-4ab3-a626-488831f147a8",
+        "completed": false
+      },
+      "id": 4
+    },
+    {
+      "type": "ADD_TODO/TRIGGER",
+      "payload": {
+        "content": "asdasdasd",
+        "id": "806737bf-3465-41f2-b84f-ec1b0d054143",
+        "completed": false
+      },
+      "id": 5
+    },
+    {
+      "type": "ADD_TODO/TRIGGER",
+      "payload": {
+        "content": "asdasdassd",
+        "id": "3e0b85e0-1d57-46d0-95fa-727a85db2e96",
+        "completed": false
+      },
+      "id": 6
+    }
+  ]
 }

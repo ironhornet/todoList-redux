@@ -3,19 +3,22 @@ import React, { FC } from "react";
 import { Checkbox, Button, ButtonGroup } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-import { deleteTodo, updateTodo } from "../../redux/todos/reduxSlice/actionCreators";
+// import { deleteTodo, updateTodo } from "../../redux/todos/reduxSlice/actionCreators";
 import { ITodoProps } from "./todo.interface";
 import "./todo.styles.css";
+import { deleteTodo, updateTodo } from "../../redux/todos/reduxSlice/todoSlice";
 
 const Todo: FC<ITodoProps> = (props) => {
-  const { todo } = props;
+  const { todo, id } = props;
   const dispatch = useDispatch();
 
   const handleChange = () => {
-    dispatch(updateTodo({id:todo.id, completed:!todo.completed}));
+    // dispatch(updateTodo({id:todo.id, completed:!todo.completed}));
+    dispatch(updateTodo({todo,id}))
   };
   const handleDelete = () => {
-    dispatch(deleteTodo(todo.id));
+    // dispatch(deleteTodo(todo.id));
+    dispatch(deleteTodo(id)) 
   };
 
   return (
